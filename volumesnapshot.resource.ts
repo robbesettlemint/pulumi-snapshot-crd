@@ -18,11 +18,10 @@ export class EKSVolumeSnapshotResource extends pulumi.ComponentResource {
     opts: pulumi.ComponentResourceOptions = {}
   ) {
     super('bpaas:cluster:eks:crd', name, {}, { ...opts });
-    //const k8sProvider = new k8s.Provider(`${name}`, { kubeconfig: settings.cluster.kubeconfig }, { parent: this });
 
-    const volumeSnapshotClassesDefinition = new volumeSnapshotClasses.Provider(`${name}`, { kubeconfig: settings.cluster.kubeconfig }, { parent: this })
-    //const volumeSnapshotContentsDefinition = new volumeSnapshotContents.Provider("volumeSnapshotContents");
-    //const volumesnapshotsDefinition = new volumesnapshots.Provider("volumesnapshots");
+    const volumeSnapshotClassesDefinition = new volumeSnapshotClasses.Provider(`${name}-volumeSnapshotClasses`, { kubeconfig: settings.cluster.kubeconfig }, { parent: this })
+    const volumeSnapshotContentsDefinition = new volumeSnapshotContents.Provider(`${name}-volumeSnapshotContents`, { kubeconfig: settings.cluster.kubeconfig }, { parent: this });
+    const volumesnapshotsDefinition = new volumesnapshots.Provider(`${name}-volumesnapshots`, { kubeconfig: settings.cluster.kubeconfig }, { parent: this });
 
   }
 }
